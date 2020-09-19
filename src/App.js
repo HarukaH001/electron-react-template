@@ -14,7 +14,6 @@ function App() {
       e.preventDefault()
       win.setFullScreen(!win.isFullScreen())
   }
-
   return (
     <div className="App">
       <header className="App-header">
