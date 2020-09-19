@@ -1,5 +1,5 @@
 ## Electron React Js Template
-Electronjs cross-platform desktop application template using Reactjs as base.<br/>
+Electronjs cross-platform desktop application template using Reactjs as base. **BUILD READY**<br/>
 I built this template so that I won't get trouble setting this up every time I needed it.<br/>
 Since it's the React thing, this template can be deployed as a web app too. Good for me &#128522;
 ### Usage
