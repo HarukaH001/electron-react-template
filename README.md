@@ -2,6 +2,17 @@
 Electronjs cross-platform desktop application template using Reactjs as base.<br/>
 I built this template so that I won't get trouble setting this up every time I needed it.<br/>
 Since it's the React thing, this template can be deployed as a web app too. Good for me &#128522;
+### Usage
+```bash
+# Clone this repository
+git clone https://github.com/HarukaH001/electron-react-template.git
+# Go into the repository
+cd electron-react-template
+# Install dependencies
+npm install
+# Run the desktop application or whatever else there is to offer
+npm run electron-dev
+```
 ### Available Scripts
 In the project directory, you mostly using these:
 ### `npm start`
