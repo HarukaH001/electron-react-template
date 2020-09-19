@@ -1,33 +1,43 @@
+/* eslint-disable no-unused-vars */
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, remote } = require('electron')
+const ipc = require('electron').ipcMain
 const path = require('path')
 // eslint-disable-next-line no-unused-vars
 const url = require('url')
 const isDev = require('electron-is-dev')
 
-let mainWindow
+let win
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({
-    width: 1200,
+  win = new BrowserWindow({
+    width: isDev? 1700 : 1200,
     height: 900,
     webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,
       worldSafeExecuteJavaScript: true,
-      contextIsolation: true
+      enableRemoteModule: true
     }
   })
 
   // and load the index.html of the app.
-  // mainWindow.loadFile('public/index.html')
-  // mainWindow.loadURL('http://localhost:3000/')
-  mainWindow.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`)
+  // win.loadFile('public/index.html')
+  // win.loadURL('http://localhost:3000/')
+  win.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`)
 
   // Open the DevTools.
-  if(isDev) mainWindow.webContents.openDevTools()
+  if(isDev) win.webContents.openDevTools()
 
-  mainWindow.on('closed', () => mainWindow = null);
+  win.setContentProtection(true)
+
+  win.on('closed', () => win = null);
+
+  win.webContents.on('did-finish-load', () => {
+    win.webContents.send('ping', '🤘')
+  } );
+
 }
 
 app.on('ready', createWindow);
@@ -39,7 +49,7 @@ app.on('window-all-closed', () => {
 });
 
 app.on('activate', () => {
-  if (mainWindow === null) {
+  if (win === null) {
     createWindow();
   }
 });

@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  const win = window.remote.getCurrentWindow()
+  useEffect(()=>{
+    window.ipc.on('ping', (event, message) => {
+      console.log(message)
+    })
+  }, [])
+
+  function screenHandle(e) {
+      e.preventDefault()
+      win.setFullScreen(!win.isFullScreen())
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -18,6 +30,7 @@ function App() {
         >
           Learn React
         </a>
+        <button id="toggle-fullscreen" onClick={screenHandle}>Fullscreen</button>
       </header>
     </div>
   );
