@@ -14,9 +14,21 @@ function App() {
       e.preventDefault()
       win.setFullScreen(!win.isFullScreen())
   }
+
+  useEffect(()=>{
+    const video = document.querySelector('video')
+
+    navigator.mediaDevices.getUserMedia({
+      video: { width: 1280, height: 720 }
+    }).then(stream=>{
+      video.srcObject = stream
+    }).catch(err=>{
+      console.log(err)
+    })
+  },[])
   return (
     <div className="App">
-      <header className="App-header">
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
@@ -30,7 +42,8 @@ function App() {
           Learn React
         </a>
         <button id="toggle-fullscreen" onClick={screenHandle}>Fullscreen</button>
-      </header>
+      </header> */}
+      <video autoPlay={true}></video>
     </div>
   );
 }

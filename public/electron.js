@@ -6,6 +6,7 @@ const path = require('path')
 // eslint-disable-next-line no-unused-vars
 const url = require('url')
 const isDev = require('electron-is-dev')
+const { systemPreferences } = require('electron/main')
 
 let win
 
@@ -31,7 +32,7 @@ function createWindow () {
   // Open the DevTools.
   if(isDev) win.webContents.openDevTools()
 
-  win.setContentProtection(true)
+  if(!isDev) win.setContentProtection(true)
 
   win.on('closed', () => win = null);
 
